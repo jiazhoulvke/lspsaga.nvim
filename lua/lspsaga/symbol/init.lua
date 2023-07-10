@@ -166,6 +166,20 @@ function symbol:register_module()
         return
       end
 
+      if config.symbol_in_winbar.ft ~= nil then
+        local ftype = vim.opt.filetype:get()
+        local found = false
+        for _, v in ipairs(config.symbol_in_winbar.ft) do
+          if v == ftype then
+            found = true
+            break
+          end
+        end
+        if not found then
+          return
+        end
+      end
+
       local winbar = require('lspsaga.symbol.winbar')
       winbar.file_bar(args.buf)
 
